@@ -9,3 +9,4 @@
 - [ ] Comprimir Carpetas
 - [ ] Borrar respaldos antiguos
 - [ ] Descargar Respaldo
+- [ ] Permitir respaldar bases de datos
