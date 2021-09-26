@@ -3,7 +3,10 @@
 
   <BreezeAuthenticatedLayout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">Servers</h2>
+      <div class="flex justify-between">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Servers</h2>
+        <Link href="/servers/create" class="btn">Create Server</Link>
+      </div>
     </template>
 
     <div class="py-12">

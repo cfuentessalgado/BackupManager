@@ -19,7 +19,7 @@ use Inertia\Inertia;
 
 
 Route::resource('servers', ServerController::class)->middleware('auth');
-Route::resource('server.folders', ServerFolderController::class)->shallow()->middleware('auth');
+Route::resource('servers.folders', ServerFolderController::class)->shallow()->middleware('auth');
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

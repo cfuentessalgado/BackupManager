@@ -54,7 +54,7 @@ test('a folder can be added to a server', function () {
     ];
 
     $this->withoutExceptionHandling();
-    $this->actingAs(User::factory()->create())->post(route('server.folders.store', $server), $data);
+    $this->actingAs(User::factory()->create())->post(route('servers.folders.store', $server), $data);
     $this->assertDatabaseCount('folders', 1);
     $folder = Folder::first();
     $this->assertEquals($data['ignore_patterns'], $folder->ignore_patterns);

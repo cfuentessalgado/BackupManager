@@ -21,6 +21,7 @@ class CreateFoldersTable extends Migration
             $table->string('backup_patterns', 2000)->nullable();
             $table->string('schedule_id')->nullable();
             $table->string('hour')->nullable()->default(null);
+            $table->integer('max_backups')->default(1);
             $table->timestamps();
         });
     }

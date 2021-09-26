@@ -30,6 +30,7 @@ class CreateServerFolderRequest extends FormRequest
             'backup_patterns' => 'nullable|array',
             'schedule' => 'required|exists:App\Models\Schedule,label',
             'hour' => 'nullable|required_if:schedule,dailyAt',
+            'max_backups' => 'nullable|numeric|min:1|max:10',
         ];
     }
 }

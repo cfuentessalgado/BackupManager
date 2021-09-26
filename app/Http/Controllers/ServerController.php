@@ -6,6 +6,7 @@ use App\Http\Requests\CreateServerRequest;
 use App\Models\Schedule;
 use App\Models\Server;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class ServerController extends Controller
@@ -22,19 +23,18 @@ class ServerController extends Controller
         $server->load('folders', 'folders.schedule');
         return Inertia::render('Servers/Show', [
             'server' => $server,
-            'schedules' => Schedule::all(),
         ]);
     }
 
     public function create()
     {
-        return true;
+        return Inertia::render('Servers/Create');
     }
 
     public function store(CreateServerRequest $request)
     {
         Server::create($request->safe()->all());
 
-        return back()->withSuccess('Server created');
+        return Redirect::route('servers.index')->withSuccess('Server created');
     }
 }
