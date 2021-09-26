@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ServerController;
+use App\Http\Controllers\ServerFolderController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -18,6 +19,7 @@ use Inertia\Inertia;
 
 
 Route::resource('servers', ServerController::class)->middleware('auth');
+Route::resource('server.folders', ServerFolderController::class)->shallow()->middleware('auth');
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

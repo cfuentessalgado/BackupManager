@@ -22,7 +22,9 @@ class ServerFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->domainName(),
+            'ip' => $this->faker->ipv4(),
+            'backup_username' => $this->faker->userName(),
         ];
     }
 }

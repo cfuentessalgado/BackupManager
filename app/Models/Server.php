@@ -9,4 +9,9 @@ class Server extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function folders()
+    {
+        return $this->hasMany(Folder::class);
+    }
 }
