@@ -4,6 +4,7 @@ use App\Models\Folder;
 use App\Models\Server;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Testing\Assert;
 
 use function Pest\Laravel\withoutExceptionHandling;
@@ -60,4 +61,18 @@ test('a folder can be added to a server', function () {
     $this->assertEquals($data['ignore_patterns'], $folder->ignore_patterns);
     $this->assertEquals($data['schedule'], $folder->schedule_id);
     $this->assertEquals($data['hour'], $folder->hour);
+});
+
+test('when creating a server it creates a private/public ssh key pair', function () {
+    Storage::fake('keys');
+    $data = [
+        'name' => 'Server 1',
+        'ip' => '10.10.1.20',
+        'backup_username' => 'backup',
+    ];
+
+    $response = $this->followingRedirects()->actingAs(User::factory()->create())->post('/servers', $data);
+    $response->assertOK();
+    $this->assertDatabaseCount('servers', 1);
+    Storage::disk('keys')->assertExists(['1/id_rsa','1/id_rsa']);
 });
