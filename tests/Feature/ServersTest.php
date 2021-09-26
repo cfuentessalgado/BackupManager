@@ -24,6 +24,7 @@ it('shows view for creating server', function(){
 });
 
 it('allows to create a server', function(){
+    Storage::fake('keys');
     $data = [
         'name' => 'Server 1',
         'ip' => '10.10.1.20',
@@ -75,4 +76,5 @@ test('when creating a server it creates a private/public ssh key pair', function
     $response->assertOK();
     $this->assertDatabaseCount('servers', 1);
     Storage::disk('keys')->assertExists(['1/id_rsa','1/id_rsa']);
+    Storage::fake('keys');
 });
