@@ -22,6 +22,7 @@ class ServerController extends Controller
     public function show(Server $server)
     {
         $server->load('folders', 'folders.schedule');
+        $server->append('public_key');
         return Inertia::render('Servers/Show', [
             'server' => $server,
         ]);
