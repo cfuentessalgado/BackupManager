@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Folder extends Model
 {
@@ -43,5 +44,10 @@ class Folder extends Model
     public function setBackupPatternsAttribute(array $value)
     {
        $this->attributes['backup_patterns'] = implode(',', $value);
+    }
+
+    public function getBackupPathAttribute()
+    {
+        return Storage::disk('backups')->path($this->id);
     }
 }

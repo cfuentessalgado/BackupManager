@@ -13,6 +13,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 use Spatie\Ssh\Ssh;
 
 class BackupFolder implements ShouldQueue
@@ -31,8 +32,8 @@ class BackupFolder implements ShouldQueue
     public function __construct(Folder $folder)
     {
         $this->folder = $folder;
-        $this->backupFolder = '/home/' . $this->folder->server->backup_username . '/bm_backups/';
-        $this->outputFile = $this->backupFolder . date('Y_m_d_H_i_s_') . basename($this->folder->path) . '.zip';
+        $this->backupFolder = '~/bm_backups/';
+        $this->outputFile = $this->backupFolder . Str::uuid().'_'. basename($this->folder->path). '.zip';
     }
 
     /**
@@ -61,17 +62,20 @@ class BackupFolder implements ShouldQueue
             return false;
         }
 
-        $zipCleared = $this->clearRemoteZip($process, $backup);
+        // $zipCleared = $this->clearRemoteZip($process, $backup);
 
-        if(!$zipCleared) {
-            return false;
-        }
+        // if(!$zipCleared) {
+        //     return false;
+        // }
 
+        $backup->successful = true;
+        $backup->path = $this->folder->id . '/' . basename($this->outputFile);
+        $backup->size = Storage::disk('backups')->size($backup->path);
         $backup->save();
         return 0;
     }
 
-    private function createZip($process, $backup)
+    private function createZip(Ssh $process, $backup)
     {
         $process->execute('mkdir -p ' . $this->backupFolder);
         $zipCommand = View::make('commands.zip_folder', [
@@ -90,11 +94,10 @@ class BackupFolder implements ShouldQueue
         return true;
     }
 
-    private function downloadZip($process, Backup $backup)
+    private function downloadZip(Ssh $process, Backup $backup)
     {
-        Storage::disk('backups')->makeDirectory($this->folder->server->id);
-        $storageFolder = $this->folder->server->backup_path . '/' . basename($this->outputFile);
-
+        Storage::disk('backups')->makeDirectory($this->folder->id);
+        $storageFolder = $this->folder->backup_path . '/' ;
         $copyProc = $process->download($this->outputFile, $storageFolder);
         if (!$copyProc->isSuccessful()) {
             $backup->successful = false;
@@ -106,11 +109,11 @@ class BackupFolder implements ShouldQueue
         return true;
     }
 
-    private function clearRemoteZip($process, Backup $backup)
+    private function clearRemoteZip(Ssh $process, Backup $backup)
     {
         $rmProc = $process->execute('rm ' . $this->outputFile);
         $backup->successful = true;
-        $backup->path = $this->folder->server->id . '/' . basename($this->outputFile);
+        $backup->path = $this->folder->id . '/' . basename($this->outputFile);
         $backup->size = Storage::disk('backups')->size($backup->path);
         if (!$rmProc->isSuccessful()) {
             $backup->error = 'Warning: remote file could not be deleted.';

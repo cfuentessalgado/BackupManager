@@ -30,9 +30,4 @@ class Server extends Model
     {
         return Storage::disk('keys')->path($this->id.'/id_rsa');
     }
-
-    public function getBackupPathAttribute()
-    {
-        return Storage::disk('backups')->path($this->id);
-    }
 }
