@@ -49,6 +49,7 @@
                         <th>Path</th>
                         <th>Schedule</th>
                         <th>Max Backups</th>
+                        <th>Current Backups</th>
                         <th>Show</th>
                       </tr>
                     </thead>
@@ -60,6 +61,7 @@
                         <td v-text="folder.path"></td>
                         <td v-text="folder.schedule.label"></td>
                         <td v-text="folder.max_backups"></td>
+                        <td v-text="folder.backups.length"></td>
                         <td>
                           <Link :href="`/folders/${folder.id}`" class="text-blue-600">show</Link>
                         </td>
