@@ -10,3 +10,4 @@
 - [x] Borrar respaldos antiguos
 - [ ] Descargar Respaldo
 - [ ] Permitir respaldar bases de datos
+- [x] Add host to known_hosts

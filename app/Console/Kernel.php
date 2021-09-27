@@ -2,6 +2,12 @@
 
 namespace App\Console;
 
+use App\Jobs\RunBackups;
+use App\Jobs\RunDailyBackups;
+use App\Jobs\RunHourlyBackups;
+use App\Jobs\RunMonthlyBackups;
+use App\Jobs\RunWeeklyBackups;
+use App\Jobs\RunYearlyBackups;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -25,6 +31,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->job(new RunBackups('hourly'))->hourly();
+        $schedule->job(new RunBackups('daily'))->daily();
+        $schedule->job(new RunBackups('weekly'))->weekly();
+        $schedule->job(new RunBackups('monthly'))->monthly();
+        $schedule->job(new RunBackups('yearly'))->yearly();
     }
 
     /**

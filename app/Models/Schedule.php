@@ -18,10 +18,6 @@ class Schedule extends Model
             'description' => 'Daily at 00:00 hrs.',
         ],
         [
-            'label' => 'dailyAt',
-            'description' => 'Daily at the specified hour',
-        ],
-        [
             'label' => 'weekly',
             'description' => 'Weekly on Sunday at 00:00 hrs.',
         ],

@@ -37,7 +37,7 @@ class ClearRemoteBackups implements ShouldQueue
         $process = Ssh::create(
             $this->backup->folder->server->backup_username,
             $this->backup->folder->server->ip
-        )->usePrivateKey($this->backup->folder->server->private_key_path)->disablePasswordAuthentication();
+        )->disableStrictHostKeyChecking()->usePrivateKey($this->backup->folder->server->private_key_path)->disablePasswordAuthentication();
         $process->execute('rm ' . $this->outputFile);
     }
 }

@@ -11,6 +11,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
@@ -48,7 +49,7 @@ class BackupFolder implements ShouldQueue
         $process = Ssh::create(
             $this->folder->server->backup_username,
             $this->folder->server->ip
-        )->usePrivateKey($this->folder->server->private_key_path)->disablePasswordAuthentication();
+        )->disableStrictHostKeyChecking()->usePrivateKey($this->folder->server->private_key_path)->disablePasswordAuthentication();
 
 
         $zipCreated = $this->createZip($process, $backup);
@@ -77,8 +78,8 @@ class BackupFolder implements ShouldQueue
             'folder' => $this->folder,
             'outputFile' => $this->outputFile,
         ])->render();
+        Log::debug($process->getExecuteCommand($zipCommand));
         $zipProc = $process->execute($zipCommand);
-
         if (!$zipProc->isSuccessful()) {
             $backup->successful = false;
             $backup->error = 'Error during zip file creation.';
