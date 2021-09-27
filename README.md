@@ -3,10 +3,10 @@
 
 ## TODO
 
-- [ ] Registrar servidores
-- [ ] Registrar Carpetas a Respaldar
-- [ ] Permitir agregar patrones de ignore a las carpetas
-- [ ] Comprimir Carpetas
-- [ ] Borrar respaldos antiguos
+- [x] Registrar servidores
+- [x] Registrar Carpetas a Respaldar
+- [x] Permitir agregar patrones de ignore a las carpetas
+- [x] Comprimir Carpetas
+- [x] Borrar respaldos antiguos
 - [ ] Descargar Respaldo
 - [ ] Permitir respaldar bases de datos

@@ -62,16 +62,11 @@ class BackupFolder implements ShouldQueue
             return false;
         }
 
-        // $zipCleared = $this->clearRemoteZip($process, $backup);
-
-        // if(!$zipCleared) {
-        //     return false;
-        // }
-
         $backup->successful = true;
         $backup->path = $this->folder->id . '/' . basename($this->outputFile);
         $backup->size = Storage::disk('backups')->size($backup->path);
         $backup->save();
+        ClearOldBackups::dispatch($this->folder);
         return 0;
     }
 
