@@ -159,12 +159,12 @@ export default {
     submit() {
       const data = {
         path: this.path,
-        ignored_patterns: this.ignoredPatterns,
+        ignore_patterns: this.ignoredPatterns,
         backup_patterns: this.backupPatterns,
         schedule: this.selectedSchedule,
         hour: this.hour,
       }
-
+      console.log(data)
       this.$inertia.post(`/servers/${this.server.id}/folders`, data)
     },
     addIgnorePattern() {

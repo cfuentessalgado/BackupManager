@@ -20,4 +20,19 @@ class Server extends Model
     {
         return Storage::disk('keys')->get($this->id.'/id_rsa.pub');
     }
+
+    public function getPublicKeyPathAttribute()
+    {
+        return Storage::disk('keys')->path($this->id.'/id_rsa.pub');
+    }
+
+    public function getPrivateKeyPathAttribute()
+    {
+        return Storage::disk('keys')->path($this->id.'/id_rsa');
+    }
+
+    public function getBackupPathAttribute()
+    {
+        return Storage::disk('backups')->path($this->id);
+    }
 }

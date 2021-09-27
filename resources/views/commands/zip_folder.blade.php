@@ -1,0 +1,1 @@
+zip -9 -r @foreach($folder->ignore_patterns??collect([]) as $excludePattern) --exclude='*{!!$excludePattern!!}/*' @endforeach  {!!$outputFile!!} {!! $folder->path !!}

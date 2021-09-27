@@ -12,6 +12,14 @@ use Inertia\Inertia;
 class ServerFolderController extends Controller
 {
 
+    public function show(Folder $folder)
+    {
+        $folder->load('backups', 'server');
+        return Inertia::render('Servers/Folders/Show', [
+            'folder' => $folder
+        ]);
+    }
+
     public function create(Server $server)
     {
         return Inertia::render('Servers/Folders/Create', [

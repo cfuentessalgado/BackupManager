@@ -20,6 +20,11 @@ class Folder extends Model
         return $this->belongsTo(Schedule::class, 'schedule_id', 'label');
     }
 
+    public function backups()
+    {
+        return $this->hasMany(Backup::class);
+    }
+
     public function getIgnorePatternsAttribute($value)
     {
         return explode(',', $value);

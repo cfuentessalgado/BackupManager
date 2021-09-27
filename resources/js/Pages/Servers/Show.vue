@@ -39,56 +39,64 @@
                 >
               </div>
               <section v-if="folderActive">
-                <div v-if="server.folders.length > 0">
-                  <div
-                    v-for="folder in server.folders"
-                    :key="folder.id"
-                    tabindex="0"
-                    class="
-                      collapse
-                      w-96
-                      border
-                      rounded-box
-                      border-base-300
-                      mb-2
-                    "
-                  >
-                    <div
-                      class="
-                        collapse-title
-                        text-xl
-                        font-medium
-                        flex
-                        justify-between
-                      "
-                    >
-                      <span v-text="folder.path"></span>
-                      <span
-                        v-text="`${folder.schedule.label} ${folder.hour ?? ''}`"
-                      ></span>
-                    </div>
-                    <div class="collapse-content">
-                      <p>
-                        Ignored Patterns: {{ folder.ignore_patterns.join(",") }}
-                      </p>
-                      <p>
-                        Backup Patterns: {{ folder.backup_patterns.join(",") }}
-                      </p>
-                      <p>Schedule: {{ folder.schedule.description }}</p>
-                      <p>Time: {{ folder.hour }}</p>
-                    </div>
-                  </div>
+                <div
+                  v-if="server.folders.length > 0"
+                  class="overflow-x-auto mt-4"
+                >
+                  <table class="table w-full">
+                    <thead>
+                      <tr>
+                        <th>Path</th>
+                        <th>Schedule</th>
+                        <th>Max Backups</th>
+                        <th>Show</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-for="folder in server.folders"
+                        :key="folder.id"
+                      >
+                        <td v-text="folder.path"></td>
+                        <td v-text="folder.schedule.label"></td>
+                        <td v-text="folder.max_backups"></td>
+                        <td>
+                          <Link :href="`/folders/${folder.id}`" class="text-blue-600">show</Link>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
                 <div v-else>
-                <p class="text-gray-600 font-semibold text-xl">
-                  No folders configured to backup for this server
-                </p>
-              </div>
+                  <p class="text-gray-600 font-semibold text-xl">
+                    No folders configured to backup for this server
+                  </p>
+                </div>
               </section>
               <section v-if="setupActive">
-                <p>Copy the <span class="bg-gray-200 rounded shadow px-1 py-1">public key</span> to the <span class="bg-gray-200 rounded shadow px-1 py-1">authorized_keys</span> of the <span class="font-semibold" v-text="server.ip"></span> server</p>
-                <button class="mt-4 btn" @click="showPublicKey=!showPublicKey">{{showPublicKey?'Hide':'Show'}} Public Key</button>
-                <div v-if="showPublicKey" class="mt-4 px-1 py-1 bg-gray-100 rounded shadow break-words" v-text="server.public_key"></div>
+                <p>
+                  Copy the
+                  <span class="bg-gray-200 rounded shadow px-1 py-1"
+                    >public key</span
+                  >
+                  to the
+                  <span class="bg-gray-200 rounded shadow px-1 py-1"
+                    >authorized_keys</span
+                  >
+                  of the
+                  <span class="font-semibold" v-text="server.ip"></span> server
+                </p>
+                <button
+                  class="mt-4 btn"
+                  @click="showPublicKey = !showPublicKey"
+                >
+                  {{ showPublicKey ? "Hide" : "Show" }} Public Key
+                </button>
+                <div
+                  v-if="showPublicKey"
+                  class="mt-4 px-1 py-1 bg-gray-100 rounded shadow break-words"
+                  v-text="server.public_key"
+                ></div>
               </section>
             </div>
           </div>
@@ -114,7 +122,8 @@ export default {
     return {
       folderActive: true,
       setupActive: false,
-      showPublicKey:false
+      showPublicKey: false,
+      folder: null,
     };
   },
 };
