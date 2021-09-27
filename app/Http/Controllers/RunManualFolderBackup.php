@@ -17,8 +17,8 @@ class RunManualFolderBackup extends Controller
      */
     public function __invoke(Request $request, Folder $folder)
     {
-        BackupFolder::dispatchSync($folder);
-        ClearOldBackups::dispatchSync($folder);
+        BackupFolder::dispatch($folder);
+        ClearOldBackups::dispatch($folder);
         return back();
     }
 }

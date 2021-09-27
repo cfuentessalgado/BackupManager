@@ -78,7 +78,7 @@ class BackupFolder implements ShouldQueue
             'folder' => $this->folder,
             'outputFile' => $this->outputFile,
         ])->render();
-        Log::debug($process->getExecuteCommand($zipCommand));
+        //Log::debug($process->getExecuteCommand($zipCommand));
         $zipProc = $process->execute($zipCommand);
         if (!$zipProc->isSuccessful()) {
             $backup->successful = false;
