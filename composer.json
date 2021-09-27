@@ -11,7 +11,9 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "inertiajs/inertia-laravel": "^0.4.3",
         "laravel/framework": "^8.54",
+        "laravel/horizon": "^5.7",
         "laravel/sanctum": "^2.6",
+        "laravel/telescope": "^4.6",
         "laravel/tinker": "^2.5",
         "spatie/ssh": "^1.6",
         "tightenco/ziggy": "^1.0"
@@ -41,10 +43,12 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi",
+            "@php artisan horizon:publish --ansi"
         ],
         "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi",
+            "@php artisan telescope:publish --ansi"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
