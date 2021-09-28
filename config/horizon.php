@@ -183,11 +183,28 @@ return [
                 'balanceMaxShift' => 1,
                 'balanceCooldown' => 3,
             ],
+            'supervisor-long-running' => [
+                'connection'=> 'redis-long-running',
+                'queue'=> ['long-running-queue'],
+                'balance' => 'simple',
+                'processes' => 9,
+                'tries' => 2,
+                'timeout' => 1800,
+            ],
         ],
 
         'local' => [
             'supervisor-1' => [
                 'maxProcesses' => 3,
+                'timeout' => 1800,
+            ],
+            'supervisor-long-running' => [
+                'connection'=> 'redis-long-running',
+                'queue'=> ['long-running-queue'],
+                'balance' => 'simple',
+                'processes' => 9,
+                'tries' => 2,
+                'timeout' => 1800,
             ],
         ],
     ],

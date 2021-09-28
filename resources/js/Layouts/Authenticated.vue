@@ -21,6 +21,12 @@
                                 <BreezeNavLink :href="route('servers.index')" :active="route().current('servers.index')">
                                     My Servers
                                 </BreezeNavLink>
+                                <NavLinkExternal href="/telescope" :active="route().current('telescope')">
+                                    Telescope
+                                </NavLinkExternal>
+                                <NavLinkExternal href="/horizon" :active="route().current('horizon')">
+                                    Horizon
+                                </NavLinkExternal>
                             </div>
                         </div>
 
@@ -105,6 +111,7 @@ import BreezeApplicationLogo from '@/Components/ApplicationLogo.vue'
 import BreezeDropdown from '@/Components/Dropdown.vue'
 import BreezeDropdownLink from '@/Components/DropdownLink.vue'
 import BreezeNavLink from '@/Components/NavLink.vue'
+import NavLinkExternal from '@/Components/NavLinkExternal.vue'
 import BreezeResponsiveNavLink from '@/Components/ResponsiveNavLink.vue'
 import { Link } from '@inertiajs/inertia-vue3';
 
@@ -114,6 +121,7 @@ export default {
         BreezeDropdown,
         BreezeDropdownLink,
         BreezeNavLink,
+        NavLinkExternal,
         BreezeResponsiveNavLink,
         Link,
     },

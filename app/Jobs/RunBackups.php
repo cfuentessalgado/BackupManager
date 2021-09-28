@@ -34,6 +34,6 @@ class RunBackups implements ShouldQueue
     public function handle()
     {
         $folders = Folder::where('schedule_id', $this->schedule)->get();
-        $folders->each(fn($folder)=> BackupFolder::dispatch($folder));
+        $folders->each(fn($folder)=> BackupFolder::dispatch($folder)->onQueue('long-running-queue'));
     }
 }

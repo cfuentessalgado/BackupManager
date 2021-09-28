@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Storage;
 class Backup extends Model
 {
     use HasFactory;
+    protected $appends = ['since'];
+
     public static function booted()
     {
         static::deleting(function ($backup) {
@@ -21,5 +23,10 @@ class Backup extends Model
     public function folder()
     {
         return $this->belongsTo(Folder::class);
+    }
+
+    public function getSinceAttribute()
+    {
+        return $this->created_at->diffForHumans();
     }
 }

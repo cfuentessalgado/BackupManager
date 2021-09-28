@@ -5,6 +5,7 @@
         <tr>
           <th>Filename</th>
           <th>Size</th>
+          <th>Date</th>
           <th>Status</th>
           <td>Download</td>
         </tr>
@@ -13,6 +14,7 @@
         <tr v-for="backup in folder.backups" :key="backup.id" class="hover">
           <td v-text="backup.path ?? 'NO FILE'"></td>
           <td v-text="sizeInMb(backup.size)"></td>
+          <td v-text="backup.since"></td>
           <td>
             <span
               v-if="backup.successful"
