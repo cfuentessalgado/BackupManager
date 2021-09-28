@@ -17,9 +17,14 @@
           <td v-text="backup.since"></td>
           <td>
             <span
-              v-if="backup.successful"
+              v-if="backup.successful && backup.size > 0"
               class="px-1 py-1 rounded text-white text-xs bg-green-600 shadow"
               >SUCCESSFUL</span
+            >
+            <span
+              v-else-if="backup.successful && backup.size < 0"
+              class="px-1 py-1 rounded text-white text-xs bg-yellow-600 shadow"
+              >PENDING</span
             >
             <span
               v-else

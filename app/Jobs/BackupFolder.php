@@ -68,7 +68,7 @@ class BackupFolder implements ShouldQueue
 
         $backup->successful = true;
         $backup->path = $this->folder->id . '/' . basename($this->outputFile);
-        $backup->size = Storage::disk('backups')->size($backup->path);
+        $backup->size = -1;
         $backup->save();
         ClearOldBackups::dispatch($this->folder);
         return 0;
@@ -97,14 +97,10 @@ class BackupFolder implements ShouldQueue
     {
         Storage::disk('backups')->makeDirectory($this->folder->id);
         $storageFolder = $this->folder->backup_path . '/' ;
-        $copyProc = $process->download($this->outputFile, $storageFolder);
-        if (!$copyProc->isSuccessful()) {
-            $backup->successful = false;
-            $backup->error = 'Error during file download.';
-            $backup->path = null;
-            $backup->save();
-            return false;
-        }
+        $scp = $process->getDownloadCommand($this->outputFile, $storageFolder);
+        $command = $scp.'> /dev/null &';
+        Log::debug($command);
+        exec($command);
         return true;
     }
 
