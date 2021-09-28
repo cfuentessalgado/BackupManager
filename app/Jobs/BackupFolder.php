@@ -19,7 +19,10 @@ use Spatie\Ssh\Ssh;
 
 class BackupFolder implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     public Folder $folder;
     public string $backupFolder;

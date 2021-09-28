@@ -13,7 +13,10 @@ use Illuminate\Queue\SerializesModels;
 
 class ClearOldBackups implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
     public Folder $folder;
     /**
      * Create a new job instance.
@@ -39,6 +42,6 @@ class ClearOldBackups implements ShouldQueue
         ->pluck('id');
 
         $toDelete = Backup::whereNotIn('id', $keepersId)->get();
-        $toDelete->each(fn ($backup)=>$backup->delete());
+        $toDelete->each(fn ($backup) =>$backup->delete());
     }
 }

@@ -11,7 +11,6 @@ use Inertia\Inertia;
 
 class ServerFolderController extends Controller
 {
-
     public function show(Folder $folder)
     {
         $folder->load('backups', 'server');

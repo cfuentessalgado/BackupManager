@@ -12,7 +12,10 @@ use Illuminate\Queue\SerializesModels;
 
 class RunBackups implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     public string $schedule;
 
@@ -34,6 +37,6 @@ class RunBackups implements ShouldQueue
     public function handle()
     {
         $folders = Folder::where('schedule_id', $this->schedule)->get();
-        $folders->each(fn($folder)=> BackupFolder::dispatch($folder)->onQueue('long-running-queue'));
+        $folders->each(fn ($folder) => BackupFolder::dispatch($folder)->onQueue('long-running-queue'));
     }
 }

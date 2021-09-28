@@ -38,12 +38,12 @@ class Folder extends Model
 
     public function setIgnorePatternsAttribute(array $value)
     {
-       $this->attributes['ignore_patterns'] = implode(',', $value);
+        $this->attributes['ignore_patterns'] = implode(',', $value);
     }
 
     public function setBackupPatternsAttribute(array $value)
     {
-       $this->attributes['backup_patterns'] = implode(',', $value);
+        $this->attributes['backup_patterns'] = implode(',', $value);
     }
 
     public function getBackupPathAttribute()
