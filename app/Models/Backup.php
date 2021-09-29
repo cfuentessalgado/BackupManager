@@ -16,7 +16,7 @@ class Backup extends Model
     public static function booted()
     {
         static::deleting(function ($backup) {
-            ClearRemoteBackups::dispatch($backup);
+            ClearRemoteBackups::dispatch($backup->path);
             Storage::disk('backups')->delete($backup->path);
         });
     }

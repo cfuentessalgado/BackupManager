@@ -17,17 +17,17 @@ class ClearRemoteBackups implements ShouldQueue
     use InteractsWithQueue;
     use Queueable;
     use SerializesModels;
-    public Backup $backup;
+    public $backupPath;
     public string $outputFile;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Backup $backup)
+    public function __construct(string $backupPath)
     {
-        $this->backup = $backup;
-        $this->outputFile = '~/bm_backups/'.basename($backup->path);
+        $this->backupPath = $backupPath;
+        $this->outputFile = '~/bm_backups/'.basename($backupPath);
     }
 
     /**
