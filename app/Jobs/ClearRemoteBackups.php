@@ -43,6 +43,9 @@ class ClearRemoteBackups implements ShouldQueue
      */
     public function handle()
     {
+        if($this->backupPath == '') {
+            return;
+        }
         $process = Ssh::create(
             $this->username,
             $this->ip

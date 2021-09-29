@@ -16,7 +16,7 @@ class Backup extends Model
     public static function booted()
     {
         static::deleting(function ($backup) {
-            ClearRemoteBackups::dispatch($backup->path, $backup->folder->server->backup_username, $backup->folder->server->ip, $backup->folder->server->privateKeyPath);
+            ClearRemoteBackups::dispatch($backup->path??'', $backup->folder->server->backup_username, $backup->folder->server->ip, $backup->folder->server->privateKeyPath);
             Storage::disk('backups')->delete($backup->path);
         });
     }
