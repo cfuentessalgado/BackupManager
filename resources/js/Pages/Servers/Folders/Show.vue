@@ -5,7 +5,7 @@
       <div class="flex justify-between">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
           Backups
-          <span class="font-semibold text-indigo-700">{{ folder.path }}</span>
+          <span v-text="`${folder.server.ip}@`" class="font-semibold text-gray-400 text-sm"></span><span class="font-semibold text-indigo-700">{{ folder.path }}</span>
         </h2>
         <div>
           <Link class="btn" :href="`/servers/${folder.server.id}`"
