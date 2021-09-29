@@ -37,6 +37,8 @@ class ClearOldBackups implements ShouldQueue
     {
         $keepersId = $this->folder->backups()
         ->latest()
+        ->where('pending', false)
+        ->where('successful', true)
         ->take($this
         ->folder->max_backups)
         ->pluck('id');

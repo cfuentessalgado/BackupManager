@@ -51,9 +51,9 @@ export default {
     folder: Object,
   },
   methods: {
-    async runManualBackup() {
+    runManualBackup() {
         this.backupRunning=true
-        await this.$inertia.post(`/folders/${this.folder.id}/backups/run`, {}, {
+        this.$inertia.post(`/folders/${this.folder.id}/backups/run`, {}, {
             onFinish: ()=> this.backupRunning = false
         })
     },

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 class Backup extends Model
 {
     use HasFactory;
+    protected $guarded = [];
     protected $appends = ['since'];
 
     public static function booted()

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CheckStatusBackupController;
 use App\Http\Controllers\DownloadBackupController;
 use App\Http\Controllers\RunManualFolderBackup;
 use App\Http\Controllers\ServerController;
@@ -24,6 +25,7 @@ Route::resource('servers', ServerController::class)->middleware('auth');
 Route::resource('servers.folders', ServerFolderController::class)->shallow()->middleware('auth');
 Route::post('/folders/{folder}/backups/run', RunManualFolderBackup::class)->middleware('auth');
 Route::get('/backups/{backup}/download', DownloadBackupController::class)->middleware('auth');
+Route::post('/backups/{backup}/check', CheckStatusBackupController::class)->middleware('auth');
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

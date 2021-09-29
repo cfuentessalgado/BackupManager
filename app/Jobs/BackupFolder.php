@@ -66,11 +66,12 @@ class BackupFolder implements ShouldQueue
             return false;
         }
 
-        $backup->successful = true;
+        $backup->successful = false;
+        $backup->pending = true;
         $backup->path = $this->folder->id . '/' . basename($this->outputFile);
-        $backup->size = -1;
+        $backup->size = 0;
         $backup->save();
-        ClearOldBackups::dispatch($this->folder);
+        CheckBackupStatus::dispatch($backup);
         return 0;
     }
 
