@@ -19,14 +19,20 @@ class ClearRemoteBackups implements ShouldQueue
     use SerializesModels;
     public $backupPath;
     public string $outputFile;
+    public string $username;
+    public string $ip;
+    public string $privateKey;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(string $backupPath)
+    public function __construct(string $backupPath, string $username, string $ip, string $privateKey)
     {
         $this->backupPath = $backupPath;
+        $this->username = $username;
+        $this->ip = $ip;
+        $this->privateKey = $privateKey;
         $this->outputFile = '~/bm_backups/'.basename($backupPath);
     }
 
@@ -38,9 +44,9 @@ class ClearRemoteBackups implements ShouldQueue
     public function handle()
     {
         $process = Ssh::create(
-            $this->backup->folder->server->backup_username,
-            $this->backup->folder->server->ip
-        )->disableStrictHostKeyChecking()->usePrivateKey($this->backup->folder->server->private_key_path)->disablePasswordAuthentication();
+            $this->username,
+            $this->ip
+        )->disableStrictHostKeyChecking()->usePrivateKey($this->privateKey)->disablePasswordAuthentication();
         $process->execute('rm ' . $this->outputFile);
     }
 }
