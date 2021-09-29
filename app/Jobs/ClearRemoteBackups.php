@@ -23,7 +23,7 @@ class ClearRemoteBackups implements ShouldQueue
     public string $ip;
     public string $privateKey;
 
-    protected $tries = 1;
+    public $tries = 1;
     /**
      * Create a new job instance.
      *

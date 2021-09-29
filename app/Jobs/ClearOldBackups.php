@@ -43,7 +43,7 @@ class ClearOldBackups implements ShouldQueue
         ->folder->max_backups)
         ->pluck('id');
 
-        $toDelete = Backup::whereNotIn('id', $keepersId)->get();
+        $toDelete = $this->folder->backups()->whereNotIn('id', $keepersId)->get();
         $toDelete->each(fn ($backup) =>$backup->delete());
     }
 }
