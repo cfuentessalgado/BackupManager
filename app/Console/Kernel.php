@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('telescope:prune')->daily();
         $schedule->job(new RunBackups('hourly'))->hourly();
         $schedule->job(new RunBackups('daily'))->daily();
         $schedule->job(new RunBackups('weekly'))->weekly();
