@@ -18,7 +18,6 @@ class RunManualFolderBackup extends Controller
     public function __invoke(Request $request, Folder $folder)
     {
         BackupFolder::dispatch($folder)->onQueue('long-running-queue');
-        ClearOldBackups::dispatch($folder);
         return back();
     }
 }
