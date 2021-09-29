@@ -51,7 +51,7 @@ test('a folder can be added to a server', function () {
             '.env',
         ],
         'backup_patterns' => [],
-        'schedule' => 'dailyAt',
+        'schedule' => 'daily',
         'hour' => '9:00',
     ];
 
