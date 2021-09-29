@@ -10,6 +10,7 @@ class Folder extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    protected $appends = ['total_size'];
 
     public function server()
     {
@@ -49,5 +50,13 @@ class Folder extends Model
     public function getBackupPathAttribute()
     {
         return Storage::disk('backups')->path($this->id);
+    }
+
+    public function getTotalSizeAttribute()
+    {
+        if(!Storage::disk('backups')->exists($this->id)) {
+            return 0;
+        }
+        return $this->backups->reduce(fn($carry, $backup)=> $carry+ Storage::disk('backups')->size($backup->path));
     }
 }

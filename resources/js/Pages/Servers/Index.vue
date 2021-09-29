@@ -20,6 +20,8 @@
                           <th>Id</th>
                           <th>Name</th>
                           <th>Ip</th>
+                          <th>Folders</th>
+                          <th>Backups</th>
                           <th>More</th>
                       </tr>
                   </thead>
@@ -28,6 +30,8 @@
                           <td v-text="server.id"></td>
                           <td v-text="server.name"></td>
                           <td v-text="server.ip"></td>
+                          <td v-text="server.folders_count"></td>
+                          <td v-text="server.backups_count"></td>
                           <td>
                               <Link :href="`/servers/${server.id}`" class="text-blue-600 hover:text-blue-500 hover:underline">details</Link>
                           </td>

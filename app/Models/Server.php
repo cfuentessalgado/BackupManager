@@ -16,6 +16,11 @@ class Server extends Model
         return $this->hasMany(Folder::class);
     }
 
+    public function backups()
+    {
+        return $this->hasManyThrough(Backup::class, Folder::class);
+    }
+
     public function getPublicKeyAttribute()
     {
         return Storage::disk('keys')->get($this->id.'/id_rsa.pub');

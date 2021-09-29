@@ -14,6 +14,7 @@ class ServerFolderController extends Controller
     public function show(Folder $folder)
     {
         $folder->load('backups', 'server');
+        $folder->append('total_size');
         return Inertia::render('Servers/Folders/Show', [
             'folder' => $folder
         ]);

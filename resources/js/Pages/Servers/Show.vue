@@ -50,6 +50,7 @@
                         <th>Schedule</th>
                         <th>Max Backups</th>
                         <th>Current Backups</th>
+                        <th>Total Size</th>
                         <th>Show</th>
                       </tr>
                     </thead>
@@ -62,6 +63,7 @@
                         <td v-text="folder.schedule.label"></td>
                         <td v-text="folder.max_backups"></td>
                         <td v-text="folder.backups.length"></td>
+                        <td v-text="sizeInMb(folder.total_size)+'MB'"></td>
                         <td>
                           <Link :href="`/folders/${folder.id}`" class="text-blue-600">show</Link>
                         </td>
@@ -128,5 +130,10 @@ export default {
       folder: null,
     };
   },
+  methods: {
+    sizeInMb(size) {
+      return Math.floor(size/1024/1024)
+    }
+  }
 };
 </script>

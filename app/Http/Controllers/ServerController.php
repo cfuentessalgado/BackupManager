@@ -15,13 +15,13 @@ class ServerController extends Controller
     public function index()
     {
         return Inertia::render('Servers/Index', [
-            'servers' => Server::all(),
+            'servers' => Server::withCount('folders', 'backups')->get(),
         ]);
     }
 
     public function show(Server $server)
     {
-        $server->load('folders', 'folders.schedule', 'folders.backups');
+        $server->load('folders', 'folders.schedule', 'folders.backups')->loadCount('folders', 'backups');
         $server->append('public_key');
         return Inertia::render('Servers/Show', [
             'server' => $server,
